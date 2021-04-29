@@ -24,5 +24,5 @@ https://fortnite-api.com/v2/aes
 ![](https://pbs.twimg.com/profile_images/579055007758032896/lFeK7nw0_200x200.png)
 
 ## Credits
-https://nitestats.com
-https://twitter.com/SizzyLeaks
+-- https://nitestats.com
+-- https://twitter.com/SizzyLeaks
