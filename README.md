@@ -16,6 +16,10 @@ https://fortnite-api.com/v2/aes
 -- Add the generated Keychain to the result.
 -- Send to Pastebin.
 
+## Get Pastebin Developer Key
+Go to https://pastebin.com/doc_api and register an account. You need the developer key to save the keychain file on pastebin.
+
+
 ## Screenshot
 ![](https://github.com/TheGameVlog/FNKeychainGenerator/blob/master/FNKeychain/screenshots/screenshot.png?raw=true)
 
