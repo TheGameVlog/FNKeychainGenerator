@@ -33,6 +33,26 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadAESGUIDs()
+    End Sub
+
+    Dim listAESGuid As New List(Of GUIDAESPAIR)
+
+    Public Sub LoadAESGUIDs()
+        Dim fetchAESGuids As New WebClient()
+        Dim aesRaw = fetchAESGuids.DownloadString("https://fortnite-api.com/v2/aes")
+
+        Dim rawKeys = JObject.Parse(aesRaw)("data")("dynamicKeys").ToString()
+
+        Dim sColl = JsonConvert.DeserializeObject(Of List(Of GUIDAESPAIR))(rawKeys)
+
+        listAESGuid = sColl
+
+        Dim aesColl As New AutoCompleteStringCollection()
+
+        aesColl.AddRange((From c In listAESGuid Select c.pakGuid).Distinct().ToArray())
+
+        txtGUID.AutoCompleteCustomSource = aesColl
 
     End Sub
 
@@ -70,7 +90,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub txtGUID_Validating(sender As Object, e As CancelEventArgs) Handles txtGUID.Validating, txtAES.Validating
+    Private Sub txtGUID_Validating(sender As Object, e As CancelEventArgs) Handles txtAES.Validating
         If sender.text <> "" Then
             ErrorProvider1.SetError(sender, "")
         End If
@@ -80,7 +100,7 @@ Public Class Form1
         Dim pasteClient As New WebClient()
 
         Dim pasteRequest As New NameValueCollection
-        pasteRequest.Add("api_dev_key", "<<PASTE BIN DEVELOPER KEY>>") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
+        pasteRequest.Add("api_dev_key", "Nw_Q42tQXS0e5Ni8Yrs4YdbaT12kLfoB") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
         pasteRequest.Add("api_option", "paste")
         pasteRequest.Add("api_paste_code", RichTextBox1.Text)
 
@@ -98,6 +118,15 @@ Public Class Form1
 
 
     End Sub
+
+    Private Sub txtGUID_Leave(sender As Object, e As EventArgs) Handles txtGUID.Leave
+        If txtGUID.Text <> "" Then
+            Dim v = From n In listAESGuid Where n.pakGuid = txtGUID.Text
+            If v.Any Then
+                txtAES.Text = v.First.key
+            End If
+        End If
+    End Sub
 End Class
 
 Public Class TheEncoder
@@ -111,5 +140,12 @@ Public Class TheEncoder
 
         Return Enumerable.Range(0, AES.Length / 2).[Select](Function(x) Convert.ToByte(AES.Substring(x * 2, 2), 16)).ToArray()
     End Function
+
+End Class
+
+Public Class GUIDAESPAIR
+    Public Property pakFilename As String
+    Public Property pakGuid As String
+    Public Property key As String
 
 End Class
