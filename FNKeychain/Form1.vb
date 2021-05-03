@@ -100,7 +100,7 @@ Public Class Form1
         Dim pasteClient As New WebClient()
 
         Dim pasteRequest As New NameValueCollection
-        pasteRequest.Add("api_dev_key", "Nw_Q42tQXS0e5Ni8Yrs4YdbaT12kLfoB") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
+        pasteRequest.Add("api_dev_key", "") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
         pasteRequest.Add("api_option", "paste")
         pasteRequest.Add("api_paste_code", RichTextBox1.Text)
 
