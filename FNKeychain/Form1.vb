@@ -25,7 +25,7 @@ Public Class Form1
             Exit Sub
         End If
         Try
-            txtKeychain.Text = txtGUID.Text & ":" & TheEncoder.HexStringToBase64(txtAES.Text.TrimStart(New Char() {"0", "x"}))
+            txtKeychain.Text = txtGUID.Text & ":" & TheEncoder.HexStringToBase64(IIf(txtAES.Text.StartsWith("0x"), txtAES.Text.Replace("0x", ""), txtAES.Text))
         Catch ex As Exception
             ErrorProvider1.SetError(txtAES, "Invalid AES Key")
         End Try
@@ -100,7 +100,7 @@ Public Class Form1
         Dim pasteClient As New WebClient()
 
         Dim pasteRequest As New NameValueCollection
-        pasteRequest.Add("api_dev_key", "Nw_Q42tQXS0e5Ni8Yrs4YdbaT12kLfoB") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
+        pasteRequest.Add("api_dev_key", "") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
         pasteRequest.Add("api_option", "paste")
         pasteRequest.Add("api_paste_code", RichTextBox1.Text)
 
