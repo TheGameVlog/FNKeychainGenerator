@@ -18,6 +18,11 @@ https://fortnite-api.com/v2/aes
 
 ## Get Pastebin Developer Key
 Go to https://pastebin.com/doc_api and register an account. You need the developer key to save the keychain file on pastebin.
+Once you get the Pastebin Developer Key
+Add it to line 103 in Form1.vb
+
+        Dim pasteRequest As New NameValueCollection
+        pasteRequest.Add("api_dev_key", "") 'Simply login to Pastebin and go to https://pastebin.com/doc_api#1
 
 
 ## Screenshot
